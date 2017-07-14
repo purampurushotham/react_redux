@@ -2,6 +2,9 @@ import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { render } from 'react-dom'
 const validate = values => {
+    console.log("validate")
+    console.log(values)
+    console.log("validate")
     const errors={}
     if (!values.userName) {
         errors.userName = 'Required'
@@ -23,6 +26,7 @@ const validate = values => {
     return errors
 }
 const warn = values => {
+    console.log("wan")
     const warnings = {}
     if (values.age < 19) {
         warnings.age = 'Hmm, you seem a bit young...'
@@ -40,13 +44,15 @@ const renderField = ({input, label, type, meta: {touched, warning, error }}) => 
 )
 
 const SyncValidationForm = (props) => {
+    const { handleSubmit, pristine, reset, submitting} = props
     console.log("syncValidatrionFoem")
     console.log(props)
+    console.log(pristine,reset,submitting)
     console.log("syncValidatrionFoem")
-    const { pristine, reset, submitting} = props
+
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <Field name ="userName" component={renderField} type="text" label="User Name" />
                 <Field name ="email" component={renderField} type="email" label="Email" />
                 <Field name ="age" component={renderField} type="number" label="Age" />
